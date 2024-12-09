@@ -26,6 +26,9 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
+
+
 @NgModule({
   exports:[
     MenuModule,
@@ -52,7 +55,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ToastModule,
     DialogModule,
     RadioButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    FloatLabelModule
   ]
 })
 export class PrimeNgModule { }

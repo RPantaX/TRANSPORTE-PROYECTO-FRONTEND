@@ -17,13 +17,20 @@
       </div>
     </ng-template>
     <ng-template pTemplate="end">
-      <div class="flex align-items-center gap-2">
+      <div class="flex align-items-center gap-3">
         <p-avatar
           image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
           shape="circle" />
-        <span class="font-bold text-bluegray-50">
-          Amy Elsner
-        </span>
+        <span class="font-bold text-bluegray-50">{{ username }}</span>
+        <!-- Botón de logout -->
+        <button
+          pButton
+          icon="pi pi-power-off"
+          class="p-button-rounded p-button-danger"
+          (click)="onLogout()"
+          pTooltip="Logout"
+          tooltipPosition="bottom"
+        ></button>
       </div>
     </ng-template>
   </p-toolbar>

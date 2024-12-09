@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,8 @@ import { Component } from '@angular/core';
     text-align: center;
   }`
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  public username: string = '';
   menuItems = [
     { label: 'Home', icon: 'pi pi-home', route: '/home' },
     { label: 'Entidad', icon: 'pi pi-book', route: '/entidad' },
@@ -26,4 +29,19 @@ export class HomeComponent {
     { label: 'Usuarios', icon: 'pi pi-users', route: '/users' },
     { label: 'Perfil', icon: 'pi pi-user', route: '/profile' }
   ];
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    this.authService.username$.subscribe(username => {
+      console.log('username'+username);
+      this.username = username;
+    });
+  }
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/auth/login'])
+  }
 }

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaxpayerType } from '../../interfaces/taxpayer-type.interface';
 import { EntidadService } from '../../services/entidad.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DocumentType } from '../../interfaces/document-type.interface';
 import { DocumentTypeResponse, EntityToSave } from '../../interfaces/entidad.interface';
+import { phoneValidator } from '../../../validations/validations.features';
 
 @Component({
   selector: 'app-entity-new-page',
@@ -23,18 +24,38 @@ export class NewPageComponent implements OnInit{
   public taxpayerType : TaxpayerType[]=[];
   public documentName : string = "";
   public entityForm = new FormGroup({
-    id:               new FormControl<number>(0),
-    documentNumber:   new FormControl<string>('', { nonNullable: true }),
-    legalName:        new FormControl<string>('', { nonNullable: true }),
-    commercialName:   new FormControl<string>('', { nonNullable: true }),
-    address:          new FormControl<string>(''),
-    phone:            new FormControl<string>(''),
-    documentTypeId:   new FormControl<number>(0, { nonNullable: true }),
-    taxpayerTypeId:   new FormControl<number>(0, { nonNullable: true }),
-    documentTypeResponse: new FormControl<DocumentTypeResponse>({"code":"", "name":"", "description": ""}),
+    id: new FormControl<number>(0),
+    documentNumber: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(15),
+      phoneValidator
+    ]),
+    legalName: new FormControl<string>('', [
+      Validators.required,
+      Validators.maxLength(100)
+    ]),
+    commercialName: new FormControl<string>('', [
+      Validators.minLength(1),
+      Validators.maxLength(100)
+    ]),
+    address: new FormControl<string>(''),
+    phone: new FormControl<string>('', [
+      phoneValidator,
+      Validators.minLength(5),
+      Validators.maxLength(50)
+    ]),
+    documentTypeId: new FormControl<number>(0,),
+    taxpayerTypeId: new FormControl<number>(0,),
+    documentTypeResponse: new FormControl<DocumentTypeResponse>({ code: '', name: '', description: '' }),
     taxpayerType: new FormControl<string>(''),
-  })
-  constructor(private entidadService : EntidadService, private messageService: MessageService, private confirmationService: ConfirmationService){}
+  });
+
+  constructor(
+    private entidadService : EntidadService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ){}
 
   get currentEntity(): EntityToSave{
     const entity = this.entityForm.value as EntityToSave
@@ -68,7 +89,7 @@ export class NewPageComponent implements OnInit{
   }
   onSubmit(): void{
     if (this.entityForm.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete los campos obligatorios' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete los campos obligatorios y verifique que la información sea válida.' });
       return;
     }
 
