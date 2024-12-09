@@ -1,3 +1,15 @@
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <p-button
+      severity="success"
+      label="Nuevo"
+      icon="pi pi-plus"
+      class="mr-2"
+      (onClick)="openNew()"
+    />
+  </ng-template>
+</p-toolbar>
+
   <p-table
       #dt
       [value]="responseApi.data.responseEntidadList"
@@ -37,7 +49,7 @@
           <td>{{ entity.legalName }}</td>
           <td>{{ entity.commercialName }}</td>
           <td>{{ entity.address }}</td>
-          <td>{{ entity.phoneNumber }}</td>
+          <td>{{ entity.phone }}</td>
           <td>{{ entity.taxpayerType }}</td>
           <td>{{ entity.documentTypeResponse.name }}</td>
           <td>
@@ -47,13 +59,13 @@
                 [rounded]="true"
                 [outlined]="true"
                 severity="success"
-                />
+                (onClick)="editEntidad(entity)" />
             <p-button
                 icon="pi pi-trash"
                 severity="danger"
                 [rounded]="true"
                 [outlined]="true"
-                />
+                (onClick)="onDeleteEntity(entity)"/>
         </td>
       </tr>
     </ng-template>
@@ -64,3 +76,19 @@
     </ng-template>
 </p-table>
 
+  <!-- Diálogo -->
+  <p-dialog
+    header="Detalles de Entidad"
+    [(visible)]="entityDialog"
+    [style]="{ width: '450px' }"
+    [modal]="true"
+    styleClass="p-fluid"
+  >
+    <app-entity-new-page
+      [entity]="selectedEntity"
+      (closeDialog)="hideDialog()"
+      (refreshEntities)="loadEntities()"
+      (dialogToDelete)="openDialogDelete()"
+    ></app-entity-new-page>
+  </p-dialog>
+  <p-confirmDialog [style]="{ width: '450px' }" />

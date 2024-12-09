@@ -55,47 +55,71 @@
         ></textarea>
       </div>
       <div class="field">
-        <label for="phoneNumer">Numero de Celular</label>
+        <label for="phone">Numero de Celular</label>
         <input
           type="text"
           pInputText
-          id="phoneNumer"
-          formControlName="phoneNumer"
+          id="phone"
+          formControlName="phone"
           autofocus
         />
-        <small class="p-error" *ngIf="entityForm.get('phoneNumer')?.invalid">
+        <small class="p-error" *ngIf="entityForm.get('phone')?.invalid">
           El nombre es requerido.
         </small>
       </div>
-      <!-- Tipo de documento -->
-      <div class="field">
-        <label for="documentTypeId">Tipo de documento</label>
-        <p-dropdown
-          inputId="documentTypeId"
-          [options]="documentType"
-          optionLabel="name"
-          optionValue="id"
-          formControlName="documentTypeId"
-          placeholder="Selecciona un tipo de documento"
-        ></p-dropdown>
-      </div>
 
-      <!-- Tipo de contribuyente -->
-      <div class="field">
-        <label class="mb-3">Tipo de Contribuyente</label>
-        <div class="formgrid grid">
-          <div class="field-radiobutton col-6" *ngFor="let c of taxpayerType">
-            <p-radioButton
-              id="taxpayerTypeId{{ c.id }}"
-              name="taxpayerTypeId"
-              [value]="c.id"
-              formControlName="taxpayerTypeId"
-            />
-            <label for="taxpayerTypeId{{ c.id }}">{{ c.name }}</label>
-          </div>
+    <!-- Tipo de documento -->
+    <div class="field" *ngIf="!isEditMode">
+      <label for="documentTypeId">Tipo de documento</label>
+      <p-dropdown
+        inputId="documentTypeId"
+        [options]="documentType"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="documentTypeId"
+        placeholder="Selecciona un tipo de documento"
+      ></p-dropdown>
+    </div>
+
+    <!-- Muestra solo el nombre del documento cuando es en modo edición -->
+    <div class="field" *ngIf="isEditMode">
+      <label for="documentType">Tipo de documento</label>
+      <input
+        type="text"
+        pInputText
+        id="documentType"
+        [value]="documentName"
+        readonly
+      />
+    </div>
+
+    <!-- Tipo de contribuyente -->
+    <div class="field" *ngIf="!isEditMode">
+      <label class="mb-3">Tipo de Contribuyente</label>
+      <div class="formgrid grid">
+        <div class="field-radiobutton col-6" *ngFor="let c of taxpayerType">
+          <p-radioButton
+            id="taxpayerTypeId{{ c.id }}"
+            name="taxpayerTypeId"
+            [value]="c.id"
+            formControlName="taxpayerTypeId"
+          />
+          <label for="taxpayerTypeId{{ c.id }}">{{ c.name }}</label>
         </div>
       </div>
-    </form>
+    </div>
+
+    <!-- Muestra solo el nombre del contribuyente cuando es en modo edición -->
+    <div class="field" *ngIf="isEditMode">
+      <label for="taxpayerType">Tipo de Contribuyente</label>
+      <input
+        type="text"
+        pInputText
+        id="taxpayerType"
+        formControlName="taxpayerType"
+        readonly
+      />
+    </div>
 
     <div >
       <p-button
@@ -103,12 +127,14 @@
       icon="pi pi-times"
       [text]="true"
       (onClick)="closeDialog.emit()"
+      (onClick)="onCancel()"
+
     />
     <p-button
-      label="Guardar"
-      icon="pi pi-check"
-      [text]="true"
-      (onClick)="onSubmit()"
+        label="{{ isEditMode ? 'Editar' : 'Guardar' }}"
+        icon="pi pi-check"
+        [text]="true"
+        (onClick)="onSubmit()"
     />
     </div>
 

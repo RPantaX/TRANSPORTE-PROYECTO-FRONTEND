@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ResponseEntidades } from '../../interfaces/entidad.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EntityToSave, ResponseEntidades } from '../../interfaces/entidad.interface';
 import { EntidadService } from '../../services/entidad.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-entidad-table',
@@ -10,9 +11,16 @@ import { EntidadService } from '../../services/entidad.service';
 export class TableComponent implements OnInit{
 
   @Input()
-  public responseApi!: ResponseEntidades
+  public responseApi!: ResponseEntidades;
 
-  constructor(private entidadService:EntidadService){};
+
+  public selectedEntity!: EntityToSave;
+
+  entityDialog: boolean = false;
+
+  entityDialogDelete: boolean = false;
+
+  constructor(private entidadService : EntidadService, private messageService: MessageService, private confirmationService: ConfirmationService){}
 
   ngOnInit(): void {
     if(!this.responseApi) throw Error('responseApi is required');
@@ -30,6 +38,51 @@ export class TableComponent implements OnInit{
         this.responseApi = responseApi;
       });
   }
+  openNew() {
+    this.entityDialog = true;
+  }
 
-
+  hideDialog() {
+    this.entityDialog = false;
+  }
+  openDialogDelete(){
+    this.entityDialogDelete = true
+  }
+  loadEntities() {
+    this.entidadService.getPageableEntities().subscribe((responseApi) => {
+      this.responseApi = responseApi;
+    });
+  }
+  editEntidad(entity: any): void {
+    console.log(entity);
+    this.entityDialog = true;
+    this.selectedEntity = {...entity}; // Asegúrate de tener esta propiedad en el componente
+  }
+  onDeleteEntity(entity: EntityToSave): void {
+    console.log(entity);
+    this.confirmationService.confirm({
+      message: `¿Estás seguro que deseas eliminar "${entity.legalName}"?`,
+      header: 'Confirmar eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.entidadService.deleteEntity(entity.id).subscribe(
+          () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'Entidad eliminada correctamente.',
+            });
+            this.loadEntities(); // Notifica al padre que recargue los datos
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Ocurrió un error al eliminar la entidad.',
+            });
+          }
+        );
+      },
+    });
+  }
 }

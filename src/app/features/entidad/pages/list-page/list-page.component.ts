@@ -26,7 +26,7 @@ export class ListPageComponent implements OnInit{
     path: ''
   };
 
-  entityDialog: boolean = false;
+
 
   constructor(
     private entidadService: EntidadService,
@@ -36,14 +36,6 @@ export class ListPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadEntities();
-  }
-
-  openNew() {
-    this.entityDialog = true;
-  }
-
-  hideDialog() {
-    this.entityDialog = false;
   }
 
   loadEntities() {

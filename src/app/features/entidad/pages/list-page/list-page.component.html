@@ -3,32 +3,10 @@
   <div class="flex align-items-center justify-content-between">
     <h1 class="mb-4">Mantenimiento de Entidades</h1>
   </div>
-  <p-toolbar styleClass="mb-4 gap-2">
-    <ng-template pTemplate="left">
-      <p-button
-        severity="success"
-        label="Nuevo"
-        icon="pi pi-plus"
-        class="mr-2"
-        (onClick)="openNew()"
-      />
-    </ng-template>
-  </p-toolbar>
+
 
   <!-- Tabla -->
   <app-entidad-table [responseApi]="responseApi"></app-entidad-table>
 
-  <!-- Diálogo -->
-  <p-dialog
-    header="Detalles de Entidad"
-    [(visible)]="entityDialog"
-    [style]="{ width: '450px' }"
-    [modal]="true"
-    styleClass="p-fluid"
-  >
-    <app-entity-new-page
-      (closeDialog)="hideDialog()"
-      (refreshEntities)="loadEntities()"
-    ></app-entity-new-page>
-  </p-dialog>
+
 </div>

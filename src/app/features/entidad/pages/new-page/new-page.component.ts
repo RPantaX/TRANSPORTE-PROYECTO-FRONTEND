@@ -4,7 +4,7 @@ import { TaxpayerType } from '../../interfaces/taxpayer-type.interface';
 import { EntidadService } from '../../services/entidad.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DocumentType } from '../../interfaces/document-type.interface';
-import { EntityToSave } from '../../interfaces/entidad.interface';
+import { DocumentTypeResponse, EntityToSave } from '../../interfaces/entidad.interface';
 
 @Component({
   selector: 'app-entity-new-page',
@@ -14,22 +14,25 @@ import { EntityToSave } from '../../interfaces/entidad.interface';
 export class NewPageComponent implements OnInit{
   @Output() closeDialog = new EventEmitter<void>();
   @Output() refreshEntities = new EventEmitter<void>();
-
-  @Input()
-  entityDialog!:boolean;
+  @Output() dialogToDelete = new EventEmitter<void>();
+  @Input() entity!: EntityToSave;
+  @Input() entityDialog!:boolean;
+  isEditMode: boolean = false;
 
   public documentType : DocumentType[] = [];
   public taxpayerType : TaxpayerType[]=[];
-
+  public documentName : string = "";
   public entityForm = new FormGroup({
-    id:             new FormControl<number>(0),
-    documentNumber: new FormControl<string>('', { nonNullable: true }),
-    legalName:      new FormControl<string>('', { nonNullable: true }),
-    commercialName: new FormControl<string>('', { nonNullable: true }),
-    address:        new FormControl<string>(''),
-    phoneNumer:     new FormControl<string>(''),
-    documentTypeId: new FormControl<number>(0, { nonNullable: true }),
-    taxpayerTypeId: new FormControl<number>(0, { nonNullable: true }),
+    id:               new FormControl<number>(0),
+    documentNumber:   new FormControl<string>('', { nonNullable: true }),
+    legalName:        new FormControl<string>('', { nonNullable: true }),
+    commercialName:   new FormControl<string>('', { nonNullable: true }),
+    address:          new FormControl<string>(''),
+    phone:            new FormControl<string>(''),
+    documentTypeId:   new FormControl<number>(0, { nonNullable: true }),
+    taxpayerTypeId:   new FormControl<number>(0, { nonNullable: true }),
+    documentTypeResponse: new FormControl<DocumentTypeResponse>({"code":"", "name":"", "description": ""}),
+    taxpayerType: new FormControl<string>(''),
   })
   constructor(private entidadService : EntidadService, private messageService: MessageService, private confirmationService: ConfirmationService){}
 
@@ -48,6 +51,21 @@ export class NewPageComponent implements OnInit{
         this.taxpayerType = TaxpayerTypeResponse.data;
       });
   }
+  ngOnChanges(): void {
+    if (this.entity) {
+      // Si hay datos en la entidad, los carga en el formulario
+      this.entityForm.patchValue(this.entity);
+      this.documentName = this.entity.documentTypeResponse.name;
+      this.isEditMode = true;
+    } else {
+      // Si no hay datos, reinicia el formulario
+      this.entityForm.reset();
+      this.isEditMode = false;
+    }
+  }
+  ngOnDestroy(): void {
+    this.entityForm.reset();
+  }
   onSubmit(): void{
     if (this.entityForm.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete los campos obligatorios' });
@@ -61,6 +79,8 @@ export class NewPageComponent implements OnInit{
               this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Entidad actualizada' });
               this.refreshEntities.emit();
               this.closeDialog.emit();
+              this.isEditMode = false;
+              this.entityForm.reset();
             },
 /*             (error) => {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar la entidad' });
@@ -72,11 +92,44 @@ export class NewPageComponent implements OnInit{
           this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Entidad creada' });
           this.refreshEntities.emit();
           this.closeDialog.emit();
+          this.entityForm.reset();
         },
 /*         (error) => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la entidad' });
         } */
       );
+  }
+  onDeleteEntity() {
+    this.confirmationService.confirm({
+      message: `¿Estás seguro que deseas eliminar "${this.entity.legalName}"?`,
+      header: 'Confirmar eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.entidadService.deleteEntity(this.entity.id).subscribe(
+          () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'Entidad eliminada correctamente.',
+            });
+            this.refreshEntities.emit(); // Notifica al padre que recargue los datos
+            this.closeDialog.emit(); // Cierra el diálogo
+          },
+          (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Ocurrió un error al eliminar la entidad.',
+            });
+          }
+        );
+      }
+    });
+  }
 
+  onCancel(): void {
+    this.isEditMode = false; // Cambiar a "modo creación"
+    this.entityForm.reset(); // Restablecer el formulario
+    this.closeDialog.emit(); // Emitir el evento de cierre
   }
 }

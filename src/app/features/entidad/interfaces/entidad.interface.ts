@@ -27,7 +27,7 @@ export interface ResponseEntidadList {
   legalName:            string;
   commercialName:       string;
   address:              string;
-  phoneNumber:          string;
+  phone:                string;
   taxpayerType:         string;
   documentTypeResponse: DocumentTypeResponse;
 }
@@ -44,7 +44,9 @@ export interface EntityToSave{
   legalName:            string;
   commercialName:       string;
   address:              string;
-  phoneNumber:          string;
+  phone:                string;
+  documentTypeResponse: DocumentTypeResponse;
+  taxpayerTypeName:     string;
   documentTypeId:         number;
   taxpayerTypeId: number;
 }
