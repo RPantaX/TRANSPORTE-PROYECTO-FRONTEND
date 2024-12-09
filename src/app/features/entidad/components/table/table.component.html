@@ -1,0 +1,66 @@
+  <p-table
+      #dt
+      [value]="responseApi.data.responseEntidadList"
+      [lazy]="true"
+      [paginator]="true"
+      [rows]="responseApi.data.pageSize"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [totalRecords]="responseApi.data.totalElements"
+      [responsiveLayout]="'scroll'"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando de {first} a {last} de un total de {{responseApi.data.totalElements}} registros"
+      (onLazyLoad)="onLazyLoad($event)"
+  >
+
+
+
+    <ng-template pTemplate="header">
+      <tr>
+          <th>ID</th>
+          <th>Numero de Documento</th>
+          <th>Nombre Legal</th>
+          <th>Nombre Comercial</th>
+          <th>Direccion</th>
+          <th>Telefono</th>
+          <th>Tipo de Contribuyente</th>
+          <th>Tipo de documento</th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entity>
+      <tr>
+          <td>{{ entity.id }}</td>
+          <td>{{ entity.documentNumber }}</td>
+          <td>{{ entity.legalName }}</td>
+          <td>{{ entity.commercialName }}</td>
+          <td>{{ entity.address }}</td>
+          <td>{{ entity.phoneNumber }}</td>
+          <td>{{ entity.taxpayerType }}</td>
+          <td>{{ entity.documentTypeResponse.name }}</td>
+          <td>
+            <p-button
+                icon="pi pi-pencil"
+                class="mr-2"
+                [rounded]="true"
+                [outlined]="true"
+                severity="success"
+                />
+            <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                [rounded]="true"
+                [outlined]="true"
+                />
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+        En total hay {{ responseApi.data.totalElements}} entidades.
+    </div>
+    </ng-template>
+</p-table>
+

@@ -1,0 +1,114 @@
+
+      <form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="documentNumber">Numero de documento</label>
+        <input
+          type="text"
+          pInputText
+          id="documentNumber"
+          formControlName="documentNumber"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="entityForm.get('documentNumber')?.invalid">
+          El numero es requerido.
+        </small>
+      </div>
+      <!-- Nombre Legal -->
+      <div class="field">
+        <label for="legalName">Razon Social</label>
+        <input
+          type="text"
+          pInputText
+          id="legalName"
+          formControlName="legalName"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="entityForm.get('legalName')?.invalid">
+          El nombre es requerido.
+        </small>
+      </div>
+      <div class="field">
+        <label for="commercialName">Nombre Comercial</label>
+        <input
+          type="text"
+          pInputText
+          id="commercialName"
+          formControlName="commercialName"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="entityForm.get('commercialName')?.invalid">
+          El nombre es requerido.
+        </small>
+      </div>
+      <!-- Dirección -->
+      <div class="field">
+        <label for="address">Dirección</label>
+        <textarea
+          id="address"
+          pInputTextarea
+          formControlName="address"
+          rows="3"
+          cols="20"
+        ></textarea>
+      </div>
+      <div class="field">
+        <label for="phoneNumer">Numero de Celular</label>
+        <input
+          type="text"
+          pInputText
+          id="phoneNumer"
+          formControlName="phoneNumer"
+          autofocus
+        />
+        <small class="p-error" *ngIf="entityForm.get('phoneNumer')?.invalid">
+          El nombre es requerido.
+        </small>
+      </div>
+      <!-- Tipo de documento -->
+      <div class="field">
+        <label for="documentTypeId">Tipo de documento</label>
+        <p-dropdown
+          inputId="documentTypeId"
+          [options]="documentType"
+          optionLabel="name"
+          optionValue="id"
+          formControlName="documentTypeId"
+          placeholder="Selecciona un tipo de documento"
+        ></p-dropdown>
+      </div>
+
+      <!-- Tipo de contribuyente -->
+      <div class="field">
+        <label class="mb-3">Tipo de Contribuyente</label>
+        <div class="formgrid grid">
+          <div class="field-radiobutton col-6" *ngFor="let c of taxpayerType">
+            <p-radioButton
+              id="taxpayerTypeId{{ c.id }}"
+              name="taxpayerTypeId"
+              [value]="c.id"
+              formControlName="taxpayerTypeId"
+            />
+            <label for="taxpayerTypeId{{ c.id }}">{{ c.name }}</label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div >
+      <p-button
+      label="Cancelar"
+      icon="pi pi-times"
+      [text]="true"
+      (onClick)="closeDialog.emit()"
+    />
+    <p-button
+      label="Guardar"
+      icon="pi pi-check"
+      [text]="true"
+      (onClick)="onSubmit()"
+    />
+    </div>
+

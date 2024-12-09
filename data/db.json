@@ -1,0 +1,157 @@
+{
+  "responseEntidades": {
+      "status": "200",
+      "message": "OK",
+      "timestamp": "2024-12-08T05:13:52.066+00:00",
+      "data": {
+        "responseEntidadList": [
+            {
+                "id": 10,
+                "documentNumber": "20508848100",
+                "legalName": "AVM ADUANERA S.A.C. AGENTES AFIANZADO",
+                "commercialName": "COMERCIAL ABC",
+                "address": "AV. PRINCIPAL 123, LIMA",
+                "phoneNumber": "987654321",
+                "taxpayerType": "Juridica",
+                "documentTypeResponse": {
+                    "code": "99",
+                    "name": "OTROS",
+                    "description": "OTROS"
+                }
+            },
+            {
+                "id": 9,
+                "documentNumber": "CNAH00003",
+                "legalName": "ANHUI HAYVO PROTECTIVE PRODUCT MANUFACTURING CO.,LTD",
+                "commercialName": "",
+                "address": "173 FENGLE AVENUE,ECNOMIC DEVELOPMENT ZONE,QUANJIAO COUNTY",
+                "phoneNumber": "",
+                "taxpayerType": "No Domiciliado",
+                "documentTypeResponse": {
+                    "code": "1",
+                    "name": "DNI",
+                    "description": "DOCUMENTO NACIONAL DE IDENTIDAD"
+                }
+            },
+            {
+                "id": 8,
+                "documentNumber": "20498383361",
+                "legalName": "REPUESTOS DAVID DIESEL E.I.R.L.",
+                "commercialName": "",
+                "address": "CAR.VIA EVITAMIENTO MZA. 857 LOTE. 7 SEC. IRRIGACION EL CURAL 1 AREQUIPA - AREQUIPA - CERRO COLORADO",
+                "phoneNumber": "",
+                "taxpayerType": "Juridica",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 7,
+                "documentNumber": "20510620195",
+                "legalName": "INVERSIONES PRO3 SAC",
+                "commercialName": "",
+                "address": "AV. AUTOPIDTA RAMIRO PRIALE LOTE. 02 A.V. PROP HUERTOS DE HU",
+                "phoneNumber": "",
+                "taxpayerType": "Juridica",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 6,
+                "documentNumber": "20545412528",
+                "legalName": "OASIS FOODS S.A.C.",
+                "commercialName": "",
+                "address": "CAL. FRANCISCO MASIAS NRO. 370 URB. SAN EUGENIO (PISO 7) LIM",
+                "phoneNumber": "",
+                "taxpayerType": "Juridica",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 5,
+                "documentNumber": "20556528218",
+                "legalName": "SUMAQUINARIA S.A.C.",
+                "commercialName": "",
+                "address": "AV. M.SUCRE NRO. 455 DPTO. 603 LIMA - LIMA - MAGDALENA DEL MAR",
+                "phoneNumber": "",
+                "taxpayerType": "Juridica",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 4,
+                "documentNumber": "20600131037",
+                "legalName": "CARNICOS MAFER S.A.C.",
+                "commercialName": "",
+                "address": "CAL.EL UNIVERSO NRO. 327 URB. LA CAMPIÃ‘A ZONA CINCO (ALTURA ",
+                "phoneNumber": "",
+                "taxpayerType": "Juridica",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 3,
+                "documentNumber": "10410192999",
+                "legalName": "ALVAREZ MACHUCA RENZO GUSTAVO",
+                "commercialName": "",
+                "address": "AV. LOS ALISOS MZA. G LOTE. 05 ASC. LA ALBORADA DE OQUENDO III ETAPA (CRUCE PTE OQUENDO CON AV.NESTOR GAMBETTA) PROV. CONST. DEL CALLAO - PROV. CONST. DEL CALLAO - CALLAO",
+                "phoneNumber": "",
+                "taxpayerType": "Natural Con Negocio",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 2,
+                "documentNumber": "20543844838",
+                "legalName": "PUNTUAL EXPRESS S.A.C.",
+                "commercialName": "",
+                "address": "MZA. F LOTE. 29 AS.RSD.MONTECARLO II LIMA - LIMA - SAN MARTIN DE PORRE",
+                "phoneNumber": "",
+                "taxpayerType": "Natural Sin Negocio",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            },
+            {
+                "id": 1,
+                "documentNumber": "20505327552",
+                "legalName": "SYL S.A.C",
+                "commercialName": "SYL CARGO NOMBRE COMERCIAL",
+                "address": "Jr. Comandante Jimenez Nro. 166 Int. a (entre Cuadra 7 y 8 Javier Padro Oeste)",
+                "phoneNumber": "79845612",
+                "taxpayerType": "Natural Sin Negocio",
+                "documentTypeResponse": {
+                    "code": "11",
+                    "name": "PARTIDA DE NACIMIENTO - IDENTIDAD",
+                    "description": "PARTIDA DE NACIMIENTO - IDENTIDAD"
+                }
+            }
+        ],
+        "pageNumber": 0,
+        "pageSize": 10,
+        "totalPages": 1,
+        "totalElements": 10,
+        "end": true
+    },
+    "path": "api/v1/entidad/"
+  }
+  }
