@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanMatch, GuardResult, MaybeAsync, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { CanActivate, CanMatch, GuardResult, MaybeAsync, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 @Injectable({providedIn: 'root'})
 export class AuthGuard implements CanMatch, CanActivate {
@@ -17,10 +17,10 @@ export class AuthGuard implements CanMatch, CanActivate {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+  canActivate(): MaybeAsync<GuardResult> {
     return this.checkAuthStatus();
   }
-  canMatch(route: Route, segments: UrlSegment[]): MaybeAsync<GuardResult> {
+  canMatch(): MaybeAsync<GuardResult> {
     return this.checkAuthStatus();
   }
 

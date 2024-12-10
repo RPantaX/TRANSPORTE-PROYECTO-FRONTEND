@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { catchError, map, Observable, of } from 'rxjs';
-import { EntityToSave, ResponseApiToChanges, ResponseEntidades, ResponseEntidadList } from '../interfaces/entidad.interface';
+import { EntityToSave, ResponseApiToChanges, ResponseEntidades } from '../interfaces/entidad.interface';
 
-import { environment } from '../../../../environments/environments.prod';
+import { environment } from '../../../../environments/environments';
 import { TaxpayerTypeResponse } from '../interfaces/taxpayer-type.interface';
 import { DocumentTypeResponse } from '../interfaces/document-type.interface';
 
@@ -36,7 +36,6 @@ export class EntidadService {
     )
   }
 
-  // Servicio para crear una nueva entidad
   saveEntity(entity: EntityToSave): Observable<ResponseEntidades> {
     return this.httpClient.post<ResponseEntidades>(`${this.baseUrl}/entidad`, entity);
   }

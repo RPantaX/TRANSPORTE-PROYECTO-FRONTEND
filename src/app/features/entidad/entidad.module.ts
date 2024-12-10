@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { EntidadRoutingModule } from './entidad-routing.module';
 import { NewPageComponent } from './pages/new-page/new-page.component';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { PrimeNgModule } from '../../prime-ng/prime-ng.module';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { MessageService } from 'primeng/api';
@@ -15,7 +14,6 @@ import { TableComponent } from './components/table/table.component';
   declarations: [
     ListPageComponent,
     NewPageComponent,
-    SearchPageComponent,
     TableComponent
   ],
   imports: [

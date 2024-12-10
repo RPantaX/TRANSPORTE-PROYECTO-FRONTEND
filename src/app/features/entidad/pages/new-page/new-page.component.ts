@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 import { TaxpayerType } from '../../interfaces/taxpayer-type.interface';
 import { EntidadService } from '../../services/entidad.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { DocumentType } from '../../interfaces/document-type.interface';
 import { DocumentTypeResponse, EntityToSave } from '../../interfaces/entidad.interface';
 import { phoneValidator } from '../../../validations/validations.features';
@@ -87,65 +89,49 @@ export class NewPageComponent implements OnInit{
   ngOnDestroy(): void {
     this.entityForm.reset();
   }
-  onSubmit(): void{
+  onSubmit(): void {
     if (this.entityForm.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Por favor, complete los campos obligatorios y verifique que la información sea válida.' });
       return;
     }
 
     const entity = this.entityForm.value as EntityToSave;
-    console.log(entity);
-      if(entity.id){
-        this.entidadService.updateEntity(entity.id, entity).subscribe(() => {
-              this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Entidad actualizada' });
-              this.refreshEntities.emit();
-              this.closeDialog.emit();
-              this.isEditMode = false;
-              this.entityForm.reset();
-            },
-/*             (error) => {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar la entidad' });
-            } */
-          );
-          return;
-      }
-      this.entidadService.saveEntity(entity).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Entidad creada' });
+
+    if (entity.id) {
+      // Modo edición
+      this.entidadService.updateEntity(entity.id, entity).subscribe(
+        () => {
+          this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Entidad actualizada' });
           this.refreshEntities.emit();
           this.closeDialog.emit();
+          this.isEditMode = false;
           this.entityForm.reset();
         },
-/*         (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la entidad' });
-        } */
+        (error) => this.handleError(error) // Manejar errores
       );
+      return;
+    }
+
+    // Modo creación
+    this.entidadService.saveEntity(entity).subscribe(
+      () => {
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Entidad creada' });
+        this.refreshEntities.emit();
+        this.closeDialog.emit();
+        this.entityForm.reset();
+      },
+      (error) => this.handleError(error) // Manejar errores
+    );
   }
-  onDeleteEntity() {
-    this.confirmationService.confirm({
-      message: `¿Estás seguro que deseas eliminar "${this.entity.legalName}"?`,
-      header: 'Confirmar eliminación',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.entidadService.deleteEntity(this.entity.id).subscribe(
-          () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Éxito',
-              detail: 'Entidad eliminada correctamente.',
-            });
-            this.refreshEntities.emit(); // Notifica al padre que recargue los datos
-            this.closeDialog.emit(); // Cierra el diálogo
-          },
-          (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Ocurrió un error al eliminar la entidad.',
-            });
-          }
-        );
-      }
-    });
+
+  // Manejo del error
+  private handleError(error: any): void {
+    if (error.status === 406) {
+      const message = error.error.message || 'Error en la solicitud';
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrió un error inesperado. Intente nuevamente.' });
+    }
   }
 
   onCancel(): void {

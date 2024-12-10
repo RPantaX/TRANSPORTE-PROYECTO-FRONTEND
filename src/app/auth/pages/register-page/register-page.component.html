@@ -1,90 +1,95 @@
-<div class="flex justify-content-center align-items-center">
-  <div class="surface-card p-5 border-round shadow-2 w-full sm:w-25rem">
-    <h2 class="text-center text-2xl font-bold text-primary-200 mb-4">Registro</h2>
-    <!-- Mensaje de Error Global -->
-    <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">
-      {{ errorMessage }}
+<div class="m-5">
+  <h1 class="m-3 p-2 flex justify-content-center align-items-center">Sintad</h1>
+  <div class="flex justify-content-center align-items-center">
+    <div class="surface-card p-5 border-round shadow-2 w-full sm:w-25rem">
+      <h2 class="text-center text-2xl font-bold text-primary-200 mb-4">Registro</h2>
+      <!-- Mensaje de Error Global -->
+      <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">
+        {{ errorMessage }}
+      </div>
+      <form class="flex flex-column gap-4" [formGroup]="userForm" (ngSubmit)="onRegister()">
+        <!-- Username -->
+        <div class="flex flex-column gap-2">
+          <label for="username" class="text-primary-300 font-medium">Usuario</label>
+          <input
+            id="username"
+            type="text"
+            pInputText
+            formControlName="username"
+            placeholder="Ingresa tu nombre de ususario"
+            class="w-full p-inputtext p-component"
+            required
+          />
+          <small *ngIf="usernameControl?.touched && usernameControl?.errors?.['required']" class="text-red-500">
+            El usuario es obligatorio.
+          </small>
+          <small *ngIf="usernameControl?.touched && usernameControl?.errors?.['minlength']" class="text-red-500">
+            El usuario debe tener al menos 2 caracteres.
+          </small>
+          <small *ngIf="usernameControl?.touched && usernameControl?.errors?.['maxlength']" class="text-red-500">
+            El usuario no puede exceder los 50 caracteres.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="phone" class="text-primary-300 font-medium">Telefono</label>
+          <input
+            id="phone"
+            type="text"
+            pInputText
+            formControlName="phone"
+            placeholder="Ingresa tu numero telefonico"
+            class="w-full p-inputtext p-component"
+          />
+          <small *ngIf="phoneControl?.touched && phoneControl?.errors?.['required']" class="text-red-500">
+            El teléfono es obligatorio.
+          </small>
+          <small *ngIf="phoneControl?.touched && phoneControl?.errors?.['minlength']" class="text-red-500">
+            El teléfono debe tener al menos 5 caracteres.
+          </small>
+          <small *ngIf="phoneControl?.touched && phoneControl?.errors?.['phoneInvalid']" class="text-red-500">
+            El teléfono debe contener solo números.
+          </small>
+        </div>
+        <!-- Password -->
+        <div class="flex flex-column gap-2">
+          <label for="password" class="text-primary-300 font-medium">Contrasenia</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            pInputText
+            placeholder="Ingresa tu constrasenia"
+            class="w-full p-inputtext p-component"
+            required
+          />
+          <small *ngIf="passwordControl?.touched && passwordControl?.errors?.['required']" class="text-red-500">
+            La contraseña es obligatoria.
+          </small>
+          <small *ngIf="passwordControl?.touched && passwordControl?.errors?.['minlength']" class="text-red-500">
+            La contraseña debe tener al menos 6 caracteres.
+          </small>
+          <small *ngIf="passwordControl?.touched && passwordControl?.errors?.['passwordInvalid']" class="text-red-500">
+            La contraseña debe tener al menos una letra mayúscula, un número y un carácter especial.
+          </small>
+        </div>
+
+        <!-- Login Button -->
+        <div class="flex mx-auto">
+          <p-button
+            label="crear cuenta"
+            icon="pi pi-sign-in"
+            class="w-full mx-3"
+            (click)="onRegister()"
+            styleClass="bg-primary text-primary-50 font-medium p-3 border-round hover:bg-primary-600 transition-duration-200"
+          ></p-button>
+        </div>
+
+        <div class="flex justify-content-end mt-2">
+          <a routerLink="/auth/login">Volver al Inicio de sesion</a>
+        </div>
+      </form>
     </div>
-    <form class="flex flex-column gap-4" [formGroup]="userForm" (ngSubmit)="onRegister()">
-      <!-- Username -->
-      <div class="flex flex-column gap-2">
-        <label for="username" class="text-primary-300 font-medium">Usuario</label>
-        <input
-          id="username"
-          type="text"
-          pInputText
-          formControlName="username"
-          placeholder="Ingresa tu nombre de ususario"
-          class="w-full p-inputtext p-component"
-          required
-        />
-        <small *ngIf="usernameControl?.touched && usernameControl?.errors?.['required']" class="text-red-500">
-          El usuario es obligatorio.
-        </small>
-        <small *ngIf="usernameControl?.touched && usernameControl?.errors?.['minlength']" class="text-red-500">
-          El usuario debe tener al menos 2 caracteres.
-        </small>
-        <small *ngIf="usernameControl?.touched && usernameControl?.errors?.['maxlength']" class="text-red-500">
-          El usuario no puede exceder los 50 caracteres.
-        </small>
-      </div>
-      <div class="flex flex-column gap-2">
-        <label for="phone" class="text-primary-300 font-medium">Telefono</label>
-        <input
-          id="phone"
-          type="text"
-          pInputText
-          formControlName="phone"
-          placeholder="Ingresa tu numero telefonico"
-          class="w-full p-inputtext p-component"
-        />
-        <small *ngIf="phoneControl?.touched && phoneControl?.errors?.['required']" class="text-red-500">
-          El teléfono es obligatorio.
-        </small>
-        <small *ngIf="phoneControl?.touched && phoneControl?.errors?.['minlength']" class="text-red-500">
-          El teléfono debe tener al menos 5 caracteres.
-        </small>
-        <small *ngIf="phoneControl?.touched && phoneControl?.errors?.['phoneInvalid']" class="text-red-500">
-          El teléfono debe contener solo números.
-        </small>
-      </div>
-      <!-- Password -->
-      <div class="flex flex-column gap-2">
-        <label for="password" class="text-primary-300 font-medium">Contrasenia</label>
-        <input
-          id="password"
-          type="password"
-          formControlName="password"
-          pInputText
-          placeholder="Ingresa tu constrasenia"
-          class="w-full p-inputtext p-component"
-          required
-        />
-        <small *ngIf="passwordControl?.touched && passwordControl?.errors?.['required']" class="text-red-500">
-          La contraseña es obligatoria.
-        </small>
-        <small *ngIf="passwordControl?.touched && passwordControl?.errors?.['minlength']" class="text-red-500">
-          La contraseña debe tener al menos 6 caracteres.
-        </small>
-        <small *ngIf="passwordControl?.touched && passwordControl?.errors?.['passwordInvalid']" class="text-red-500">
-          La contraseña debe tener al menos una letra mayúscula, un número y un carácter especial.
-        </small>
-      </div>
-
-      <!-- Login Button -->
-      <div class="flex mx-auto">
-        <p-button
-          label="crear cuenta"
-          icon="pi pi-sign-in"
-          class="w-full mx-3"
-          (click)="onRegister()"
-          styleClass="bg-primary text-primary-50 font-medium p-3 border-round hover:bg-primary-600 transition-duration-200"
-        ></p-button>
-      </div>
-
-      <div class="flex justify-content-end mt-2">
-        <a routerLink="/auth/login">Volver al Inicio de sesion</a>
-      </div>
-    </form>
   </div>
+
 </div>
+

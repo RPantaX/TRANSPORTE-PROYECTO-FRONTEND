@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CanMatch, CanActivate, Router, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, tap, map } from 'rxjs';
+import { CanMatch, CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 
@@ -21,16 +21,11 @@ export class PublicGuard implements CanMatch, CanActivate {
   }
 
 
-  canMatch(route: Route, segments: UrlSegment[]): boolean | Observable<boolean> {
-    // console.log('Can Match');
-    // console.log({ route, segments })
+  canMatch(): boolean | Observable<boolean> {
     return this.checkAuthStatus();
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> {
-    // console.log('Can Activate');
-    // console.log({ route, state })
-
+  canActivate(): boolean | Observable<boolean> {
     return this.checkAuthStatus();
   }
 

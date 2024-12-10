@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 import { EntityToSave, ResponseEntidades } from '../../interfaces/entidad.interface';
 import { EntidadService } from '../../services/entidad.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-entidad-table',
@@ -12,7 +14,6 @@ export class TableComponent implements OnInit{
 
   @Input()
   public responseApi!: ResponseEntidades;
-
 
   public selectedEntity!: EntityToSave;
 

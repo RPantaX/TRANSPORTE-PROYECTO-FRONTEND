@@ -1,0 +1,23 @@
+<div class="card m-4">
+
+  <h1>Lista de Tipo de documentos</h1>
+
+  <p-table [value]="responseApi.data" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-document>
+        <tr>
+            <td>{{ document.id }}</td>
+            <td>{{ document.code }}</td>
+            <td>{{ document.name }}</td>
+            <td>{{ document.description }}</td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>

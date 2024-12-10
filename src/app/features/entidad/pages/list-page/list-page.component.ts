@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ResponseEntidades, ResponseEntidadList } from '../../interfaces/entidad.interface';
+import { ResponseEntidades } from '../../interfaces/entidad.interface';
 import { EntidadService } from '../../services/entidad.service';
-import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
-import { TaxpayerType, TaxpayerTypeResponse } from '../../interfaces/taxpayer-type.interface';
-import { DocumentType } from '../../interfaces/document-type.interface';
 
 @Component({
   selector: 'app-list-page',
@@ -29,9 +26,7 @@ export class ListPageComponent implements OnInit{
 
 
   constructor(
-    private entidadService: EntidadService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private entidadService: EntidadService
   ) {}
 
   ngOnInit(): void {
