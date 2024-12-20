@@ -31,6 +31,18 @@ const routes: Routes = [
     canMatch: [ AuthGuard ]
   },
   {
+    path: 'camion',
+    loadChildren: ()=> import('./features/camion/camion.module').then(m=>m.CamionModule),
+    canActivate: [ AuthGuard ],
+    canMatch: [ AuthGuard ]
+  },
+  {
+    path: 'camionero',
+    loadChildren: ()=> import('./features/camionero/camionero.module').then(m=>m.CamioneroModule),
+    canActivate: [ AuthGuard ],
+    canMatch: [ AuthGuard ]
+  },
+  {
     path: 'users',
     loadChildren: ()=> import('./features/users/users.module').then(m=>m.UsersModule),
     canActivate: [ AuthGuard ],

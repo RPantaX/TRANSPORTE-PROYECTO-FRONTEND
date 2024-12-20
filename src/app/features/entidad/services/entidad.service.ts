@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { EntityToSave, ResponseApiToChanges, ResponseEntidades } from '../interfaces/entidad.interface';
 
-import { environment } from '../../../../environments/environments';
+import { environment } from '../../../../environments/environments.prod';
 import { TaxpayerTypeResponse } from '../interfaces/taxpayer-type.interface';
 import { DocumentTypeResponse } from '../interfaces/document-type.interface';
 

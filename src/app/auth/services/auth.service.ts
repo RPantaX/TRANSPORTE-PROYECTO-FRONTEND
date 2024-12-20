@@ -1,7 +1,7 @@
 
   import { Injectable } from '@angular/core';
   import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environments.prod';
 import { ApiResponse, User } from '../interfaces/user.interface';
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 
@@ -71,7 +71,6 @@ import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from
     }
 
     onLogin (token: any) {
-      console.log(token);
       this.claims = JSON.parse(window.atob(token.split(".")[1])) //el token se separa por puntos cabezera, claims, firma./viene en base 64->atob nos permite decodificar un script en base 64
       this.isAuth = true;
       this.isAdmin = this.claims.isAdmin;

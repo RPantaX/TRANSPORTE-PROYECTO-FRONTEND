@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit{
     { label: 'Entidad', icon: 'pi pi-book', route: '/entidad' },
     { label: 'Documento', icon: 'pi pi-id-card', route: '/document-type' },
     { label: 'Contribuidor', icon: 'pi pi-address-book', route: '/contributor-type' },
+    { label: 'Camion', icon: 'pi pi-truck', route: '/camion' },
+    { label: 'Camionero', icon: 'pi pi-user', route: '/camionero' },
     //{ label: 'Usuarios', icon: 'pi pi-users', route: '/users' }
   ];
 

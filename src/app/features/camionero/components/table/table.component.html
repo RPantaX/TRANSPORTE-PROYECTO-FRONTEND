@@ -1,0 +1,104 @@
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <p-button
+      severity="success"
+      label="Nuevo"
+      icon="pi pi-plus"
+      class="mr-2"
+      (onClick)="openNew()"
+    />
+  </ng-template>
+</p-toolbar>
+
+  <p-table
+      #dt
+      [value]="responseApi.data.responseCamioneroList"
+      [lazy]="true"
+      [paginator]="true"
+      [rows]="responseApi.data.pageSize"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [totalRecords]="responseApi.data.totalElements"
+      [responsiveLayout]="'scroll'"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando de {first} a {last} de un total de {{responseApi.data.totalElements}} registros"
+      (onLazyLoad)="onLazyLoad($event)"
+  >
+
+
+
+    <ng-template pTemplate="header">
+      <tr>
+          <th>ID</th>
+          <th>DNI</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Direccion</th>
+          <th>Telefono</th>
+          <th>Edad</th>
+          <th>Licencia</th>
+          <th>Camion-ID</th>
+          <th>Camion-Placa</th>
+          <th>Camion-Marca</th>
+          <th>Entidad-Numero Documento</th>
+          <th>Entidad-Razon Social</th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entity>
+      <tr>
+          <td>{{ entity.id }}</td>
+          <td>{{ entity.dni }}</td>
+          <td>{{ entity.nombres }}</td>
+          <td>{{ entity.apellidos }}</td>
+          <td>{{ entity.direccion }}</td>
+          <td>{{ entity.telefono }}</td>
+          <td>{{ entity.edad }}</td>
+          <td>{{ entity.nroLicencia }}</td>
+          <td>{{ entity.camion.id }}</td>
+          <td>{{ entity.camion.placa }}</td>
+          <td>{{ entity.camion.marca }}</td>
+          <td>{{ entity.entidad.documentNumber }}</td>
+          <td>{{ entity.entidad.legalName }}</td>
+          <td>
+            <p-button
+                icon="pi pi-pencil"
+                class="mr-2"
+                [rounded]="true"
+                [outlined]="true"
+                severity="success"
+                (onClick)="editEntidad(entity)" />
+            <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                [rounded]="true"
+                [outlined]="true"
+                (onClick)="onDeleteEntity(entity)"/>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+        En total hay {{ responseApi.data.totalElements}} entidades.
+    </div>
+    </ng-template>
+</p-table>
+
+  <!-- Diálogo -->
+  <p-dialog
+    header="Detalles de Entidad"
+    [(visible)]="entityDialog"
+    [style]="{ width: '450px' }"
+    [modal]="true"
+    styleClass="p-fluid"
+  >
+    <app-camionero-new-page
+      [entity]="selectedEntity"
+      (closeDialog)="hideDialog()"
+      (refreshEntities)="loadEntities()"
+      (dialogToDelete)="openDialogDelete()"
+    ></app-camionero-new-page>
+  </p-dialog>
+  <p-confirmDialog [style]="{ width: '450px' }" />

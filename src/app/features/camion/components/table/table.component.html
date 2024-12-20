@@ -1,0 +1,86 @@
+<p-toolbar styleClass="mb-4 gap-2">
+  <ng-template pTemplate="left">
+    <p-button
+      severity="success"
+      label="Nuevo"
+      icon="pi pi-plus"
+      class="mr-2"
+      (onClick)="openNew()"
+    />
+  </ng-template>
+</p-toolbar>
+
+  <p-table
+      #dt
+      [value]="apiResponseList.data"
+      [paginator]="true"
+      [rows]="10"
+      [responsiveLayout]="'scroll'"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrando de {first} a {last} de un total de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+
+
+
+    <ng-template pTemplate="header">
+      <tr>
+          <th>ID</th>
+          <th>Placa</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Anio de fabricacion</th>
+          <th>Estado</th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entity>
+      <tr>
+          <td>{{ entity.id }}</td>
+          <td>{{ entity.placa }}</td>
+          <td>{{ entity.marca }}</td>
+          <td>{{ entity.modelo }}</td>
+          <td>{{ entity.yearFabricacion }}</td>
+          <td>{{ entity.estado }}</td>
+          <td>
+            <p-button
+                icon="pi pi-pencil"
+                class="mr-2"
+                [rounded]="true"
+                [outlined]="true"
+                severity="success"
+                (onClick)="editEntidad(entity)" />
+            <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                [rounded]="true"
+                [outlined]="true"
+                (onClick)="onDeleteEntity(entity)"/>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+        En total hay {{ apiResponseList.data ? apiResponseList.data.length : 0 }} camiones.
+    </div>
+    </ng-template>
+</p-table>
+
+  <!-- Diálogo -->
+  <p-dialog
+    header="Detalles de Entidad"
+    [(visible)]="entityDialog"
+    [style]="{ width: '450px' }"
+    [modal]="true"
+    styleClass="p-fluid"
+  >
+    <app-camion-new-page
+      [entity]="selectedEntity"
+      (closeDialog)="hideDialog()"
+      (refreshEntities)="loadEntities()"
+      (dialogToDelete)="openDialogDelete()"
+    ></app-camion-new-page>
+  </p-dialog>
+  <p-confirmDialog [style]="{ width: '450px' }" />

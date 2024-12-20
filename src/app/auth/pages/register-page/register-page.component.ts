@@ -49,7 +49,6 @@ export class RegisterPageComponent {
       return;
     }
     const user = this.userForm.value as User
-    console.log(user);
     this.authService.register(user)
     .subscribe({
       next: () => this.router.navigate(['/home']), // Navega solo si el login fue exitoso

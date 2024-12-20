@@ -1,0 +1,105 @@
+
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label for="dni">DNI</label>
+    <input
+      type="text"
+      pInputText
+      id="dni"
+      formControlName="dni"
+      required
+    />
+    <small class="p-error" *ngIf="entityForm.get('documentNumber')?.invalid">
+      El numero es requerido.
+    </small>
+  </div>
+
+  <!-- Dirección -->
+  <div class="field">
+    <label for="direccion">Dirección</label>
+    <textarea
+      id="direccion"
+      pInputTextarea
+      formControlName="direccion"
+      rows="3"
+      cols="20"
+    ></textarea>
+  </div>
+  <div class="field">
+    <label for="telefono">Telefono</label>
+    <input
+      type="text"
+      pInputText
+      id="telefono"
+      formControlName="telefono"
+    />
+    <small class="p-error" *ngIf="entityForm.get('phone')?.invalid">
+      El nombre es requerido.
+    </small>
+  </div>
+  <div class="field">
+    <label for="nroLicencia">Licencia</label>
+    <input
+      type="text"
+      pInputText
+      id="nroLicencia"
+      formControlName="nroLicencia"
+    />
+    <small class="p-error" *ngIf="entityForm.get('phone')?.invalid">
+      El nombre es requerido.
+    </small>
+  </div>
+  <div class="field">
+    <label for="edad">Edad</label>
+    <input
+      type="number"
+      id="edad"
+      formControlName="edad"
+    />
+    <small class="p-error" *ngIf="entityForm.get('phone')?.invalid">
+      El nombre es requerido.
+    </small>
+  </div>
+<!-- Tipo de documento -->
+<div class="field" >
+  <label for="idEntidad">Tipo de documento</label>
+  <p-dropdown
+    inputId="idEntidad"
+    [options]="entidad"
+    optionLabel="legalName"
+    optionValue="id"
+    formControlName="idEntidad"
+    placeholder="Selecciona un tipo de documento"
+  ></p-dropdown>
+</div>
+
+<div class="field" >
+  <label for="idCamion">Tipo de documento</label>
+  <p-dropdown
+    inputId="idCamion"
+    [options]="camion"
+    optionLabel="placa"
+    optionValue="id"
+    formControlName="idCamion"
+    placeholder="Selecciona un tipo de documento"
+  ></p-dropdown>
+</div>
+
+
+<div >
+  <p-button
+  label="Cancelar"
+  icon="pi pi-times"
+  [text]="true"
+  (onClick)="closeDialog.emit()"
+  (onClick)="onCancel()"
+
+/>
+<p-button
+    label="{{ isEditMode ? 'Editar' : 'Guardar' }}"
+    icon="pi pi-check"
+    [text]="true"
+    (onClick)="onSubmit()"
+/>
+</div>
+

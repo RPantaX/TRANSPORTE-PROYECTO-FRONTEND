@@ -1,0 +1,73 @@
+
+<form [formGroup]="entityForm" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label for="placa">Placa</label>
+    <input
+      type="text"
+      pInputText
+      id="placa"
+      formControlName="placa"
+      required
+    />
+    <small class="p-error" *ngIf="entityForm.get('placa')?.invalid">
+      El campo es requerido.
+    </small>
+  </div>
+  <!--  -->
+  <div class="field">
+    <label for="marca">Marca</label>
+    <input
+      type="text"
+      pInputText
+      id="marca"
+      formControlName="marca"
+      required
+      autofocus
+    />
+    <small class="p-error" *ngIf="entityForm.get('marca')?.invalid">
+      El campo es requerido.
+    </small>
+  </div>
+  <div class="field">
+    <label for="modelo">Modelo</label>
+    <input
+      type="text"
+      pInputText
+      id="modelo"
+      formControlName="modelo"
+      required
+    />
+    <small class="p-error" *ngIf="entityForm.get('commercialName')?.invalid">
+      El campo es requerido.
+    </small>
+  </div>
+  <div class="field">
+    <label for="yearFabricacion">Anio de fabricacion</label>
+    <input
+      type="number"
+      pInputText
+      id="yearFabricacion"
+      formControlName="yearFabricacion"
+      required
+    />
+    <small class="p-error" *ngIf="entityForm.get('yearFabricacion')?.invalid">
+      El campo es requerido.
+    </small>
+  </div>
+<div >
+  <p-button
+  label="Cancelar"
+  icon="pi pi-times"
+  [text]="true"
+  (onClick)="closeDialog.emit()"
+  (onClick)="onCancel()"
+
+/>
+<p-button
+    label="{{ isEditMode ? 'Editar' : 'Guardar' }}"
+    icon="pi pi-check"
+    [text]="true"
+    (onClick)="onSubmit()"
+/>
+</div>
+
